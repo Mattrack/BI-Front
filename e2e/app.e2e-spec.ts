@@ -5,10 +5,10 @@ describe('bi-front App', function() {
 
   beforeEach(() => {
     page = new BiFrontPage();
-  })
+  });
 
   it('should display message saying app works', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('bi-front works!');
+    expect(page.getParagraphText()).toEqual('app works!');
   });
 });

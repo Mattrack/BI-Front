@@ -1,2 +1,2 @@
-export {environment} from './environment';
-export {BiFrontAppComponent} from './bi-front.component';
+export * from './app.component';
+export * from './app.module';
