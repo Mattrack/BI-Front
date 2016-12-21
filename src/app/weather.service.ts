@@ -12,7 +12,7 @@ export class WeatherService {
   };
 
   private datasets = {
-    GSOM : {
+    GSOM: {
       id: "GSOM",
       "mindate": "1763-01-01",
       "maxdate": "2016-11-01",
@@ -68,9 +68,19 @@ export class WeatherService {
       + "&enddate=" + endDate
       + "&units=metrics";
 
-    let headers = new Headers({ 'token': this.token });
+    let headers = new Headers({'token': this.token});
+
+    headers.append("Content-Type", "text/plain");
+    //   "Content-Type": "text/plain",
+    //   "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+    //   "Accept-Encoding": "gzip, deflate, sdch, br",
+    //   "Accept-Language": "en-US,en;q=0.8,fr;q=0.6",
+    //   "Cache-Control": "max-age=0",
+    //   "Connection": "keep-alive"
+    // });
 
     console.log(url);
-    return this.http.get(url, {headers : headers})
+    console.log(headers);
+    return this.http.get(url, {headers: headers})
   }
 }
