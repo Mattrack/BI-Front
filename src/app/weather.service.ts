@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, Response, Headers} from '@angular/http';
+import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import {Observable}     from 'rxjs/Observable';
 
 
@@ -8,8 +8,10 @@ export class WeatherService {
 
   private token = "PXyWExwyMscIGJgzqBAcumyYfrZTDqte";
   public routes = {
-    data: "http://www.ncdc.noaa.gov/cdo-web/api/v2/data"
+    data: "https://www.ncdc.noaa.gov/cdo-web/api/v2/data"
   };
+
+  private serveUrl ="http://localhost:8081";
 
   private datasets = {
     GSOM: {
@@ -24,7 +26,7 @@ export class WeatherService {
 
   constructor(private http: Http) {
     this.getDataForCity("GSOM", "CITY:AE000001", "2010-01-01", "2011-01-01").subscribe(
-      cities => console.log(cities)
+       cities => console.log(cities)
     );
   }
 
@@ -68,19 +70,13 @@ export class WeatherService {
       + "&enddate=" + endDate
       + "&units=metrics";
 
-    let headers = new Headers({'token': this.token});
+    var req = {
+      dataDet : dataSet,
+      locationId : locationId,
+      startDate : startDate,
+      endDate : endDate
+    };
 
-    headers.append("Content-Type", "text/plain");
-    //   "Content-Type": "text/plain",
-    //   "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-    //   "Accept-Encoding": "gzip, deflate, sdch, br",
-    //   "Accept-Language": "en-US,en;q=0.8,fr;q=0.6",
-    //   "Cache-Control": "max-age=0",
-    //   "Connection": "keep-alive"
-    // });
-
-    console.log(url);
-    console.log(headers);
-    return this.http.get(url, {headers: headers})
+    return this.http.get(this.serveUrl + "/getHistoric", req)
   }
 }
