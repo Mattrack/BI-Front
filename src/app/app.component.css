@@ -1,7 +1,17 @@
-.app-content {
+.app-content md-card {
+  margin: 20px;
+}
+
+.app-content header {
+  background-color: #0d3349;
   padding: 20px;
 }
 
-.app-content md-card {
-  margin: 20px;
+.app-content header md-card-title {
+  color: #ffffff;
+}
+
+.wrapper {
+  max-width: 1350px;
+  margin: 0 auto;
 }
