@@ -11,7 +11,7 @@ export class WeatherService {
     data: "https://www.ncdc.noaa.gov/cdo-web/api/v2/data"
   };
 
-  private serveUrl ="http://localhost:8081";
+  private serveUrl = "http://localhost:8081";
 
   private datasets = {
     GSOM: {
@@ -26,7 +26,7 @@ export class WeatherService {
 
   constructor(private http: Http) {
     this.getDataForCity("GSOM", "CITY:AE000001", "2010-01-01", "2011-01-01").subscribe(
-       cities => console.log(cities)
+      cities => console.log(cities)
     );
   }
 
@@ -63,20 +63,14 @@ export class WeatherService {
 
   public getDataForCity(dataSet, locationId, startDate, endDate) {
     console.log(this.routes);
-    var url = this.routes.data
+    var url = this.serveUrl + "/getHistoric"
       + "?datasetid=" + this.datasets[dataSet].id
       + "&locationid=" + locationId
       + "&startdate=" + startDate
       + "&enddate=" + endDate
+      + "&offset=" + "0"
       + "&units=metrics";
 
-    var req = {
-      dataDet : dataSet,
-      locationId : locationId,
-      startDate : startDate,
-      endDate : endDate
-    };
-
-    return this.http.get(this.serveUrl + "/getHistoric", req)
+    return this.http.get(url);
   }
 }
