@@ -3,34 +3,33 @@
     <md-card-title>Business Intelligence Final Project</md-card-title>
   </header>
   <div class="wrapper">
+    <h2>Select a period :</h2>
     <md-input-container>
       <input md-input type="date" [(ngModel)]="startDate" placeholder="Start">
     </md-input-container>
-
     <md-input-container>
       <input md-input type="date" [(ngModel)]="endDate" placeholder="End">
     </md-input-container>
-
-
+    <br clear="both">
+    <h2>Select a city :</h2>
     <md-input-container>
       <input md-input type="text" [(ngModel)]="city" placeholder="City">
     </md-input-container>
-
+    <br clear="both">
+    <h2>Select your data :</h2>
+    <input type="file" accept=".csv" (change)="onFile($event)">
+    <br clear="both">
     <button md-raised-button
             color="accent"
 
             (click)="onConfirm()">OK
     </button>
+    <div *ngIf="data">
+      <md-radio-group>
+        <md-radio-button *ngFor="let elem of getFirst(data)" [value]="elem.datatype" (click)="formatValues(elem.datatype)">
+          {{datatypes[elem.datatype].name}}
+        </md-radio-button>
+      </md-radio-group>
+    </div>
   </div>
-  <div class="wrapper" *ngIf="data">
-    <md-radio-group>
-      <md-radio-button *ngFor="let elem of getFirst(data)" [value]="elem.datatype"
-                        (click)="formatValues(elem.datatype)">{{datatypes[elem.datatype].name}}</md-radio-button>
-    </md-radio-group>
-  </div>
-
-  <div>
-    <input type="file" accept=".csv" (change)="onFile($event)">
-  </div>
-
 </div>

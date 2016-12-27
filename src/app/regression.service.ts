@@ -63,11 +63,9 @@ export class RegressionService {
   private calcM() {
     this.m = ((this.valuesTab.length * this.sumXY) - (this.sumX * this.sumY)) /
       ((this.valuesTab.length * this.sumSqareX) - Math.pow(this.sumX, 2));
-
   };
 
   private calcB() {
     this.b = (this.sumY - (this.m * this.sumX)) / this.valuesTab.length;
   };
-
 }

@@ -15,3 +15,10 @@
   max-width: 1350px;
   margin: 0 auto;
 }
+.wrapper md-input-container {
+  margin: 0 25px 0 0;
+}
+
+button {
+  margin: 25px 0 ;
+}

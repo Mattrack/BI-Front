@@ -4,6 +4,7 @@ import {DatePipe} from "@angular/common";
 import {RegressionService} from './regression.service'
 
 var parse = require('csv-parse');
+var chartJS = require('chart.js');
 
 @Component({
   selector: 'app-root',
@@ -48,12 +49,13 @@ export class AppComponent {
     this.weatherService.getDatatypes().subscribe(
       datatypes => {
         this.datatypes = datatypes;
-        console.log(datatypes);
+        console.log("DataTypes", datatypes);
       }
     )
   }
 
   public getFirst(data) {
+    console.log("Data", data);
     return data[Object.keys(this.data)[0]]
   }
 
@@ -66,6 +68,7 @@ export class AppComponent {
     this.endDate = "2012-12-01";
 
     this.weatherService.getDataForCity("GSOM", location, this.startDate, this.endDate).subscribe((ans) => {
+      // console.log(ans[1]);
       this.data = ans;
     });
   }
@@ -82,7 +85,7 @@ export class AppComponent {
     });
     console.log(cleanArray);
     this.regressionService.setAndCalc(cleanArray);
-    console.log(this.regressionService.r);
+    console.log("R :" + this.regressionService.r);
 
   }
 
