@@ -23,8 +23,14 @@ export class WeatherService {
   };
 
   private citiesUrl = "app/cities.json";
+  private datatypesUrl = "app/datatypes.json";
 
   constructor(private http: Http) {
+    this.getDatatypes().subscribe(
+      (cities) => {
+        return;
+      }
+    );
     this.getDataForCity("GSOM", "CITY:AE000001", "2010-01-01", "2011-01-01").subscribe(
       cities => console.log(cities)
     );
@@ -60,6 +66,15 @@ export class WeatherService {
       })
       .catch(this.handleError);
   };
+
+  public getDatatypes(): Observable<any> {
+    return this.http.get(this.datatypesUrl)
+      .map((res) => {
+        return res.json();
+
+      })
+      .catch(this.handleError);
+  }
 
   public getDataForCity(dataSet, locationId, startDate, endDate) {
     console.log(this.routes);
