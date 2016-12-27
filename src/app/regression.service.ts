@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 
 @Injectable()
-export class regressionService{
+export class regressionService {
 
   private valuesTab = [];
   private sumX = 0;
@@ -9,43 +9,65 @@ export class regressionService{
   private sumSqareX = 0;
   private sumSqareY = 0;
   private sumXY = 0;
+  public r;
+  public m;
+  public b;
+
+  private setValues(values) {
+    this.valuesTab = values;
+  }
+
+  private setAndCalc(values) {
+    this.setValues(values);
+    this.calc();
+    this.calcR();
+    this.calcM();
+    this.calcB();
+  }
 
   private calc(): void {
     let tmp = 0;
     for (let i = 0; i < this.valuesTab.length; i++) {
-      tmp += this.valuesTab.x[i];
+      tmp += this.valuesTab[i].x;
     }
     this.sumX = tmp;
     tmp = 0;
     for (let i = 0; i < this.valuesTab.length; i++) {
-      tmp += this.valuesTab.y[i];
+      tmp += this.valuesTab[i].y;
     }
     this.sumY = tmp;
     tmp = 0;
     for (let i = 0; i < this.valuesTab.length; i++) {
-      tmp += Math.pow(this.valuesTab.x[i], 2);
+      tmp += Math.pow(this.valuesTab[i].x, 2);
     }
     this.sumSqareX = tmp;
     tmp = 0;
     for (let i = 0; i < this.valuesTab.length; i++) {
-      tmp += Math.pow(this.valuesTab.y[i], 2);
+      tmp += Math.pow(this.valuesTab[i].y, 2);
     }
     this.sumSqareY = tmp;
     tmp = 0;
     for (let i = 0; i < this.valuesTab.length; i++) {
-      tmp += this.valuesTab.x[i] * this.valuesTab.y[i];
+      tmp += this.valuesTab[i].x * this.valuesTab[i].y;
     }
     this.sumXY = tmp;
     return;
   };
 
-  private r = ((this.valuesTab.length * this.sumXY) - (this.sumX * this.sumY)) /
-    (Math.sqrt(((this.valuesTab.length * this.sumSqareX) - Math.pow(this.sumX, 2))) *
-    Math.sqrt(((this.valuesTab.length * this.sumSqareY) - Math.pow(this.sumY, 2))));
+  private calcR() {
+    this.r = ((this.valuesTab.length * this.sumXY) - (this.sumX * this.sumY)) /
+      (Math.sqrt(((this.valuesTab.length * this.sumSqareX) - Math.pow(this.sumX, 2))) *
+      Math.sqrt(((this.valuesTab.length * this.sumSqareY) - Math.pow(this.sumY, 2))));
+  };
 
-  private m = ((this.valuesTab.length * this.sumXY) - (this.sumX * this.sumY)) /
-    ((this.valuesTab.length * this.sumSqareX) - Math.pow(this.sumX, 2));
+  private calcM() {
+    this.m = ((this.valuesTab.length * this.sumXY) - (this.sumX * this.sumY)) /
+      ((this.valuesTab.length * this.sumSqareX) - Math.pow(this.sumX, 2));
 
-  private b = (this.sumY - (this.m * this.sumX)) / this.valuesTab.length;
+  };
+
+  private calcB() {
+    this.b = (this.sumY - (this.m * this.sumX)) / this.valuesTab.length;
+  };
 
 }
