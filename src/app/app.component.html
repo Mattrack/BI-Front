@@ -24,9 +24,13 @@
   </div>
   <div class="wrapper" *ngIf="data">
     <md-radio-group>
-      <md-radio-button *ngFor="let elem of getFirst(data)" [value]="elem.datatype">{{datatypes[elem.datatype].name}}</md-radio-button>
+      <md-radio-button *ngFor="let elem of getFirst(data)" [value]="elem.datatype"
+                        (click)="formatValues(elem.datatype)">{{datatypes[elem.datatype].name}}</md-radio-button>
     </md-radio-group>
   </div>
 
+  <div>
+    <input type="file" accept=".csv" (change)="onFile($event)">
+  </div>
 
 </div>
