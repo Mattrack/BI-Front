@@ -46,7 +46,6 @@ export class WeatherService {
 
   private handleError(error: Response | any) {
     console.log("there is an error !");
-    // In a real world app, we might use a remote logging infrastructure
     let errMsg: string;
     if (error instanceof Response) {
       const body = error.json() || '';
@@ -86,7 +85,7 @@ export class WeatherService {
       + "&offset=" + "0"
       + "&units=metrics";
 
-    return this.http.get(url).map((res)=>{
+    return this.http.get(url).map((res)=> {
       var format = res.json();
       var byDate = {};
       format.results.forEach((result) => {

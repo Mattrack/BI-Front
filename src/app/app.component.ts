@@ -11,8 +11,9 @@ import {WeatherService} from './weather.service';
 export class AppComponent {
   public title = 'app works!';
 
-  public startDate = "lol";
+  public startDate;
   public endDate;
+  public city;
   public cities;
 
   constructor(private weatherService: WeatherService) {
@@ -22,11 +23,19 @@ export class AppComponent {
 
   public getCities() {
     this.weatherService.getCities().subscribe(
-      cities => this.cities = cities
+      cities => {
+        this.cities = cities;
+        console.log(cities);
+      }
     )
   };
 
   public onConfirm() {
-    console.log('user confirm');
+    console.log("onConfirm");
+    var location = this.city;
+
+    this.weatherService.getDataForCity("GSOM", location, this.startDate, this.endDate).subscribe((ans) => {
+        console.log(ans);
+    });
   }
 }

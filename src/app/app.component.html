@@ -4,20 +4,27 @@
   </header>
   <div class="wrapper">
     <md-input-container>
-      <input md-input type="date" #startDate placeholder="Start">
+      <input md-input type="date" [(ngModel)]="startDate" placeholder="Start">
     </md-input-container>
 
     <md-input-container>
-      <input md-input type="date" #startDate placeholder="End">
+      <input md-input type="date" [(ngModel)]="endDate" placeholder="End">
     </md-input-container>
 
 
     <md-input-container>
-      <input md-input type="text" #startDate placeholder="City">
+      <input md-input type="text" [(ngModel)]="city" placeholder="City">
     </md-input-container>
 
     <button md-raised-button
             color="accent"
+
             (click)="onConfirm()">OK</button>
+
+    <!--{{startDate.value}}-->
+    <!--{{endDate.value}}-->
+
   </div>
+
+
 </div>
