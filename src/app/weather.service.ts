@@ -7,13 +7,13 @@ import {Observable}     from 'rxjs/Observable';
 export class WeatherService {
 
   private token = "PXyWExwyMscIGJgzqBAcumyYfrZTDqte";
-  public routes = {
+  private routes = {
     data: "https://www.ncdc.noaa.gov/cdo-web/api/v2/data"
   };
 
   private serveUrl = "http://localhost:8081";
 
-  private datasets = {
+  public datasets = {
     GSOM: {
       id: "GSOM",
       "mindate": "1763-01-01",
