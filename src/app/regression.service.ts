@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 
 @Injectable()
-export class regressionService {
+export class RegressionService {
 
   private valuesTab = [];
   private sumX = 0;
@@ -13,11 +13,11 @@ export class regressionService {
   public m;
   public b;
 
-  private setValues(values) {
+  public setValues(values) {
     this.valuesTab = values;
   }
 
-  private setAndCalc(values) {
+  public setAndCalc(values) {
     this.setValues(values);
     this.calc();
     this.calcR();

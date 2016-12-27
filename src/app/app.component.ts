@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {WeatherService} from './weather.service';
 import {DatePipe} from "@angular/common";
+import {RegressionService} from './regression.service'
 
 var parse = require('csv-parse');
 
@@ -8,7 +9,9 @@ var parse = require('csv-parse');
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [WeatherService, DatePipe]
+  providers: [WeatherService,
+    RegressionService,
+    DatePipe]
 
 })
 export class AppComponent {
@@ -24,7 +27,9 @@ export class AppComponent {
   public cities;
   public datatypes;
 
-  constructor(private weatherService: WeatherService, private datePipe: DatePipe) {
+  constructor(private weatherService: WeatherService,
+              private regressionService : RegressionService,
+              private datePipe: DatePipe) {
     this.getCities();
     this.getDatatypes();
     console.log(this.cities);
@@ -56,14 +61,12 @@ export class AppComponent {
     console.log("onConfirm");
     var location = this.city;
 
-    location = "CITY:AE000001";
+    location = "CITY:US360019";
     this.startDate = "2011-01-01";
     this.endDate = "2012-12-01";
 
     this.weatherService.getDataForCity("GSOM", location, this.startDate, this.endDate).subscribe((ans) => {
       this.data = ans;
-      console.log(this.data);
-      console.log(Object.keys(this.data)[0]);
     });
   }
 
@@ -78,6 +81,9 @@ export class AppComponent {
         });
     });
     console.log(cleanArray);
+    this.regressionService.setAndCalc(cleanArray);
+    console.log(this.regressionService.r);
+
   }
 
   public onFile(event) {
@@ -94,6 +100,7 @@ export class AppComponent {
         return function (e) {
           var input = e.target.result;
           parse(input, {delimiter: ';', auto_parse: true, auto_parse_date: true}, function (err, output) {
+            output.splice(0,1);
             callback(output);
           });
         };
