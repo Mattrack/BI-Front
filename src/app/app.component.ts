@@ -1,6 +1,9 @@
 import {Component} from '@angular/core';
 import {WeatherService} from './weather.service';
 
+var fs = require('fs');
+var parse = require('csv-parse');
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -61,5 +64,38 @@ export class AppComponent {
       console.log(this.data);
       console.log(Object.keys(this.data)[0]);
     });
+  }
+
+  public userData = [];
+
+  public onFile(event) {
+    console.log("onFile");
+    var file = event.srcElement.files[0];
+    console.log(file);
+
+    // var parsed = parser({delimiter: ','}, function(err, data) {
+    //   console.log(data);
+    // });
+
+    // fs.createReadStream(__dirname+'/fs_read.csv').pipe(parser);
+
+    var files = event.srcElement.files;
+
+    for (var i = 0, f; f = files[i]; i++) {
+
+      var reader = new FileReader();
+
+      reader.onload = (function(theFile) {
+        return function(e) {
+          var input = e.target.result;
+
+          parse(input, {delimiter: ';', auto_parse: true, auto_parse_date: true}, function(err, output){
+            output.splice(0, 1);
+            console.log(output);
+          });
+        };
+      })(f);
+      reader.readAsText(f);
+    }
   }
 }
