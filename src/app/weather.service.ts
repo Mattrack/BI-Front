@@ -31,9 +31,9 @@ export class WeatherService {
         return;
       }
     );
-    this.getDataForCity("GSOM", "CITY:AE000001", "2010-01-01", "2011-01-01").subscribe(
-      cities => console.log(cities)
-    );
+    this.getDataForCity("GSOM", "CITY:AE000001", "2010-01-01", "2011-01-01").subscribe((ans) => {
+      console.log(ans);
+    });
   }
 
 
@@ -86,6 +86,15 @@ export class WeatherService {
       + "&offset=" + "0"
       + "&units=metrics";
 
-    return this.http.get(url);
+    return this.http.get(url).map((res)=>{
+      var format = res.json();
+      var byDate = {};
+      format.results.forEach((result) => {
+        if (!byDate[result.date])
+          byDate[result.date] = [];
+        byDate[result.date].push(result);
+      });
+      return byDate;
+    }).catch(this.handleError);
   }
 }
