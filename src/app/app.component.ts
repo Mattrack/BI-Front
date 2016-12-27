@@ -14,10 +14,15 @@ export class AppComponent {
   public startDate;
   public endDate;
   public city;
+
+  public data;
+
   public cities;
+  public datatypes;
 
   constructor(private weatherService: WeatherService) {
     this.getCities();
+    this.getDatatypes();
     console.log(this.cities);
   }
 
@@ -30,12 +35,31 @@ export class AppComponent {
     )
   };
 
+  public getDatatypes() {
+    this.weatherService.getDatatypes().subscribe(
+      datatypes => {
+        this.datatypes = datatypes;
+        console.log(datatypes);
+      }
+    )
+  }
+
+  public getFirst(data) {
+    return data[Object.keys(this.data)[0]]
+  }
+
   public onConfirm() {
     console.log("onConfirm");
     var location = this.city;
 
+    location = "CITY:AE000001";
+    this.startDate = "2010-01-01";
+    this.endDate = "2012-01-01";
+
     this.weatherService.getDataForCity("GSOM", location, this.startDate, this.endDate).subscribe((ans) => {
-        console.log(ans);
+      this.data = ans;
+      console.log(this.data);
+      console.log(Object.keys(this.data)[0]);
     });
   }
 }

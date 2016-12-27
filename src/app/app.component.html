@@ -19,11 +19,13 @@
     <button md-raised-button
             color="accent"
 
-            (click)="onConfirm()">OK</button>
-
-    <!--{{startDate.value}}-->
-    <!--{{endDate.value}}-->
-
+            (click)="onConfirm()">OK
+    </button>
+  </div>
+  <div class="wrapper" *ngIf="data">
+    <md-radio-group>
+      <md-radio-button *ngFor="let elem of getFirst(data)" [value]="elem.datatype">{{datatypes[elem.datatype].name}}</md-radio-button>
+    </md-radio-group>
   </div>
 
 
